@@ -1,0 +1,28 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    //- Meta descripción dinámica para optimización SEO On-Page
+    meta(name="description", content=description || "Catálogo de productos - TP1 Desarrollo Web Backend")
+    meta(name="author", content="Equipo de Desarrollo DWBE")
+    //- Título dinámico por vista
+    title= title || "DWBE Store - Catálogo de Productos"
+    //- Hojas de estilo
+    link(rel="stylesheet", href="/css/styles.css")
+    //- Tipografía moderna desde Google Fonts
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap", rel="stylesheet")
+  body
+    //- Encabezado y Navegación semántica
+    include ../partials/header.pug
+
+    //- Contenedor principal con etiqueta semántica main
+    main.main-content
+      block content
+
+    //- Pie de página semántico
+    include ../partials/footer.pug
+

@@ -1,0 +1,47 @@
+extends ../layouts/layout.pug
+
+block content
+  section.hero-section
+    .hero-content
+      h1.hero-title Bienvenido a DWBE Store
+      p.hero-subtitle Solución robusta y modular desarrollada con Node.js, Express y Pug bajo la arquitectura Modelo-Vista-Controlador (MVC).
+      .hero-actions
+        a.btn.btn-primary(href="/items") Explorar Catálogo
+        a.btn.btn-outline(href="/about") Ver Detalles del Proyecto
+
+  section.features-section
+    h2.section-title Pilares del Proyecto
+    .features-grid
+      article.feature-card
+        .feature-icon 🏛️
+        h3.feature-title Arquitectura MVC
+        p Separación estricta de responsabilidades entre el modelo de datos, la capa de presentación y los controladores.
+      article.feature-card
+        .feature-icon 📦
+        h3.feature-title POO & Persistencia
+        p Encapsulamiento del acceso a datos mediante clases en JavaScript y el módulo nativo <code>fs/promises</code>.
+      article.feature-card
+        .feature-icon 🎨
+        h3.feature-title Motor de Plantillas Pug
+        p Vistas dinámicas, modulares y optimizadas para SEO con marcado semántico jerárquico.
+      article.feature-card
+        .feature-icon 🔌
+        h3.feature-title API REST Integrada
+        p Endpoints testeados y preparados para operaciones completas de lectura y escritura vía Thunder Client.
+
+  if featuredItems && featuredItems.length > 0
+    section.featured-section
+      .section-header
+        h2.section-title Productos Destacados
+        a.link-all(href="/items") Ver todos &rarr;
+      .items-grid
+        each item in featuredItems
+          article.product-card
+            .product-image-container
+              img.product-image(src=item.image, alt=`Fotografía de ${item.name}`, loading="lazy")
+            .product-info
+              span.product-category= item.category
+              h3.product-title= item.name
+              p.product-price $#{item.price.toLocaleString('es-AR')}
+              a.btn.btn-card(href=`/items/${item.id}`) Ver Detalle
+

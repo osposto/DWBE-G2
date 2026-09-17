@@ -1,0 +1,14 @@
+extends ../layouts/layout.pug
+
+block content
+  section.error-section
+    .error-container
+      span.error-code 404
+      h1.error-title Página o Recurso No Encontrado
+      p.error-message= errorMessage || "Lo sentimos, el recurso que estás buscando no existe o la dirección ingresada no es válida."
+      if requestedUrl
+        p.error-detail Ruta solicitada: <code>#{requestedUrl}</code>
+      .error-actions
+        a.btn.btn-primary(href="/") Ir al Inicio
+        a.btn.btn-outline(href="/items") Ver Catálogo
+

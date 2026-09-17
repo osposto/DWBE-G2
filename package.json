@@ -1,0 +1,24 @@
+{
+  "name": "dwbe-tp1-catalogo",
+  "version": "1.0.0",
+  "description": "TP1 - Desarrollo Web Backend: Catálogo de productos con arquitectura MVC, POO y motor de plantillas Pug",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "express",
+    "pug",
+    "mvc",
+    "poo",
+    "crud"
+  ],
+  "author": "Equipo DWBE",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "pug": "^3.0.3"
+  }
+}
+
