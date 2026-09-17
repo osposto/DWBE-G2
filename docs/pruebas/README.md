@@ -1,10 +1,10 @@
-# Plan de Pruebas y Evidencias - Thunder Client / API REST
+# Plan de Pruebas y Evidencias - Thunder Client / Postman / API REST
 
-Este documento detalla los casos de prueba ejecutados sobre el servidor para validar el cumplimiento de los requerimientos técnicos del Trabajo Práctico.
+Este documento detalla los casos de prueba y las colecciones preparadas para validar el cumplimiento de los requerimientos técnicos del Trabajo Práctico.
 
 ---
 
-## 🚀 Cómo importar la colección en Thunder Client (VS Code)
+## ⚡ 1. Cómo importar la colección en Thunder Client (VS Code)
 
 1. Abre Visual Studio Code.
 2. Abre la pestaña de la extensión **Thunder Client**.
@@ -15,7 +15,24 @@ Este documento detalla los casos de prueba ejecutados sobre el servidor para val
 
 ---
 
-## 📋 Matriz de Casos de Prueba
+## 📮 2. Cómo importar y ejecutar la colección en Postman
+
+1. Abre la aplicación de escritorio o web de **Postman**.
+2. Haz clic en el botón **Import** (en la esquina superior izquierda del panel de trabajo).
+3. Arrastra o selecciona el archivo [`docs/postman-collection.json`](../postman-collection.json).
+4. Verás la colección **"DWBE - TP1 Colección Postman"** con las 10 peticiones organizadas.
+5. **Ejecución manual:** Puedes abrir cualquier petición y presionar **Send**.
+6. **Ejecución automática (Collection Runner):**
+   - Haz clic derecho sobre la colección y selecciona **Run collection**.
+   - Haz clic en **Run DWBE - TP1 Colección Postman**.
+   - Se ejecutarán automáticamente los 10 endpoints y verás las pruebas automáticas (`pm.test`) en verde pasando al 100%.
+
+> [!NOTE]
+> La colección de Postman tiene una variable `baseUrl` configurada por defecto en `http://localhost:3000`. Si cambias el puerto del servidor, solo debes modificar ese valor en la pestaña de variables de la colección.
+
+---
+
+## 📋 3. Matriz de Casos de Prueba
 
 | # | Método | Endpoint | Caso de Prueba | Estado Esperado | Criterio de Aceptación |
 |---|--------|----------|----------------|-----------------|------------------------|
@@ -32,9 +49,9 @@ Este documento detalla los casos de prueba ejecutados sobre el servidor para val
 
 ---
 
-## 💻 Ejecución alternativa por consola (vía `curl`)
+## 💻 4. Ejecución alternativa por consola (vía `curl`)
 
-Para verificar los endpoints rápidamente desde la terminal sin abrir la extensión:
+Para verificar los endpoints rápidamente desde la terminal sin abrir aplicaciones externas:
 
 ```bash
 # 1. Obtener todos los productos (JSON)
@@ -62,4 +79,3 @@ curl -s -X PUT http://localhost:3000/items/1 \
 # 7. Eliminar producto (200 OK)
 curl -s -X DELETE http://localhost:3000/items/2
 ```
-

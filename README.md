@@ -58,6 +58,7 @@ DWBE_TP1/
 │   └── items.json                    # Base de datos local en JSON
 ├── docs/
 │   ├── thunder-client-collection.json# Colección exportable de pruebas
+│   ├── postman-collection.json       # Colección exportable para Postman con tests
 │   ├── guion_video.md                # Estructura paso a paso para la grabación del video
 │   └── pruebas/
 │       └── README.md                 # Matriz de casos de prueba y comandos curl
@@ -143,6 +144,7 @@ En cumplimiento de las pautas del trabajo práctico, las tareas se dividieron de
 ## 6. Evidencias de Pruebas y Recursos
 
 - **Colección para Thunder Client:** Disponible en [`docs/thunder-client-collection.json`](docs/thunder-client-collection.json) para importación directa en VS Code.
+- **Colección para Postman:** Disponible en [`docs/postman-collection.json`](docs/postman-collection.json) con pruebas automatizadas (`pm.test`) incorporadas.
 - **Detalle de Casos de Prueba:** Explicados paso a paso en [`docs/pruebas/README.md`](docs/pruebas/README.md).
 - **Guion de Grabación:** Estructura recomendada para el video en [`docs/guion_video.md`](docs/guion_video.md).
 
