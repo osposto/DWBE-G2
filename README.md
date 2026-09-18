@@ -53,6 +53,7 @@ DWBE_TP1/
 │       ├── clients-list.pug          # Listado accesible de cuentas agropecuarias
 │       ├── client-form.pug           # Formulario de alta comercial con validaciones
 │       ├── client-detail.pug         # Ficha técnica individual dinámica
+│       ├── client-edit.pug           # Formulario web para editar cuentas existentes
 │       └── 404.pug                   # Vista de error 404 amigable
 ├── data/
 │   └── clients.json                  # Almacenamiento local de cuentas en JSON
@@ -111,9 +112,12 @@ Abrir en el navegador web:
 | `GET` | `/clientes/nuevo` | Vista HTML | `200 OK` | `500` | Renderiza el formulario de alta comercial accesible. |
 | `POST` | `/clientes` | Form / API | `201 / 302` | `400` | Procesa el alta, valida el CUIT y persiste en `clients.json`. |
 | `GET` | `/clientes/:numeroCuenta` | Vista / JSON | `200 OK` | `404` | Ficha técnica de la cuenta por parámetro de ruta dinámico. |
-| `PUT` | `/clientes/:numeroCuenta` | API REST | `200 OK` | `404` | Actualización total de los datos de la cuenta. |
-| `PATCH` | `/clientes/:numeroCuenta` | API REST | `200 OK` | `404` | Modificación parcial de campos específicos (agrónomo, contrato). |
-| `DELETE` | `/clientes/:numeroCuenta` | API REST | `200 OK` | `404` | Eliminación física de la cuenta en `clients.json`. |
+| `GET` | `/clientes/:numeroCuenta/editar` | Vista HTML | `200 OK` | `404` | Formulario web para editar datos de una cuenta existente. |
+| `POST` | `/clientes/:numeroCuenta/editar` | Form Web | `302 Found` | `400 / 404` | Procesa la edición desde el navegador y redirige a la ficha. |
+| `POST` | `/clientes/:numeroCuenta/eliminar` | Form Web | `302 Found` | `404` | Procesa la baja desde el navegador y redirige al listado. |
+| `PUT` | `/clientes/:numeroCuenta` | API REST | `200 OK` | `404` | Actualización total de los datos de la cuenta (API). |
+| `PATCH` | `/clientes/:numeroCuenta` | API REST | `200 OK` | `404` | Modificación parcial de campos específicos (API). |
+| `DELETE` | `/clientes/:numeroCuenta` | API REST | `200 OK` | `404` | Eliminación física de la cuenta en `clients.json` (API). |
 
 ---
 

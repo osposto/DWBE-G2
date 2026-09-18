@@ -159,6 +159,32 @@ a:hover {
   color: #ffffff;
 }
 
+.btn-edit {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.btn-edit:hover {
+  background-color: #fde68a;
+  color: #78350f;
+}
+
+.btn-danger {
+  background-color: #fee2e2;
+  color: var(--danger-color);
+}
+
+.btn-danger:hover {
+  background-color: var(--danger-color);
+  color: #ffffff;
+}
+
+.actions-group {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
 /* Encabezados de página */
 .page-heading {
   margin-bottom: 2rem;

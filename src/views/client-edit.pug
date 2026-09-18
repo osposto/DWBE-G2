@@ -1,0 +1,77 @@
+extends layout.pug
+
+block content
+  nav.breadcrumb-nav(aria-label="Ruta de navegación")
+    ol.breadcrumb-list
+      li
+        a(href="/clientes") Cuentas Agropecuarias
+      li.separator /
+      li
+        a(href=`/clientes/${cliente.numeroCuenta}`)= cliente.numeroCuenta
+      li.separator /
+      li.active(aria-current="page") Modificar
+
+  section.page-heading
+    h1 Modificar Cuenta Agropecuaria: #{cliente.numeroCuenta}
+    p.subtitle Actualice los datos comerciales, contractuales o el agrónomo asignado.
+
+  if errores && errores.length > 0
+    .alert.alert-error(role="alert")
+      h2 Atención: Se detectaron errores
+      ul
+        each error in errores
+          li= error
+
+  section.form-container
+    form.client-form(action=`/clientes/${cliente.numeroCuenta}/editar`, method="POST")
+      .form-group
+        label(for="numeroCuenta") Número de Cuenta (Identificador no editable):
+        input#numeroCuenta.form-control(
+          type="text",
+          name="numeroCuenta",
+          value=cliente.numeroCuenta,
+          readonly,
+          style="background-color: #f3f4f6; cursor: not-allowed;"
+        )
+        small.form-hint El número correlativo de cuenta es la clave de identificación única.
+
+      .form-group
+        label(for="nombreCliente") Razón Social o Nombre del Productor:
+        input#nombreCliente.form-control(
+          type="text",
+          name="nombreCliente",
+          value=cliente.nombreCliente,
+          required
+        )
+
+      .form-group
+        label(for="cuit") CUIT (Clave Fiscal):
+        input#cuit.form-control(
+          type="text",
+          name="cuit",
+          value=cliente.cuit,
+          pattern="^\\d{2}-\\d{8}-\\d{1}$",
+          title="El formato debe ser XX-XXXXXXXX-X con guiones incluidos",
+          required
+        )
+        small.form-hint Formato requerido: XX-XXXXXXXX-X.
+
+      .form-group
+        label(for="tipoContrato") Modalidad de Contrato:
+        select#tipoContrato.form-control(name="tipoContrato", required)
+          option(value="mensual", selected=(cliente.tipoContrato === 'mensual')) Mensual
+          option(value="anual", selected=(cliente.tipoContrato === 'anual')) Anual
+          option(value="quinquenal", selected=(cliente.tipoContrato === 'quinquenal')) Quinquenal
+
+      .form-group
+        label(for="agronomoAsignado") Agrónomo Referente Asignado:
+        input#agronomoAsignado.form-control(
+          type="text",
+          name="agronomoAsignado",
+          value=cliente.agronomoAsignado,
+          required
+        )
+
+      .form-actions
+        button.btn.btn-primary(type="submit") Guardar Cambios
+        a.btn.btn-secondary(href=`/clientes/${cliente.numeroCuenta}`) Cancelar

@@ -19,7 +19,7 @@ Este esquema maestro adapta el plan integral de desarrollo para un equipo de dos
 * `routes/`: `clientRoutes.js` (enrutador modular de Express).
 * `middlewares/`: `cuitValidator.js` (validación fiscal), `requestLogger.js` y `errorHandler.js`.
 * `data/`: `clients.json` (archivo de almacenamiento inicializado como array vacío `[]`).
-* `views/`: `layout.pug`, `clients-list.pug`, `client-form.pug` y `client-detail.pug`.
+* `views/`: `layout.pug`, `clients-list.pug`, `client-form.pug`, `client-detail.pug` y `client-edit.pug`.
 
 
 * `public/`: `css/styles.css` (estilos accesibles y ligeros), `robots.txt`.
@@ -55,13 +55,16 @@ Este esquema maestro adapta el plan integral de desarrollo para un equipo de dos
 
 
 * **Endpoints modulares (`/clientes`):**
-* `GET /clientes`: Renderiza la tabla o tarjetas de clientes activos.
+* `GET /clientes`: Renderiza la tabla o tarjetas de clientes activos (con botones de Ver, Editar y Borrar).
 * `GET /clientes/nuevo`: Renderiza el formulario de alta comercial (P1).
 * `POST /clientes`: Procesa el alta, guarda en JSON y redirige a la lista con código 302 o 201.
-* `GET /clientes/:accountNumber`: **Ruta dinámica** que busca por parámetro de ruta y renderiza la ficha técnica individual (`client-detail.pug`).
-* `PUT /clientes/:accountNumber`: Actualización completa de una cuenta agropecuaria persistiendo en JSON.
-* `PATCH /clientes/:accountNumber`: Actualización parcial de campos específicos (ej. cambio de agrónomo o contrato).
-* `DELETE /clientes/:accountNumber`: Eliminación o baja física de la cuenta en `clients.json`.
+* `GET /clientes/:numeroCuenta`: **Ruta dinámica** que busca por parámetro de ruta y renderiza la ficha técnica individual (`client-detail.pug`).
+* `GET /clientes/:numeroCuenta/editar`: Renderiza el formulario web con datos precargados para modificación (`client-edit.pug`).
+* `POST /clientes/:numeroCuenta/editar`: Procesa la actualización web y redirige a la ficha técnica (302).
+* `POST /clientes/:numeroCuenta/eliminar`: Procesa la baja desde la web con confirmación y redirige a la lista (302).
+* `PUT /clientes/:numeroCuenta`: Actualización completa de una cuenta agropecuaria persistiendo en JSON (API).
+* `PATCH /clientes/:numeroCuenta`: Actualización parcial de campos específicos (ej. cambio de agrónomo o contrato) (API).
+* `DELETE /clientes/:numeroCuenta`: Eliminación o baja física de la cuenta en `clients.json` (API).
 
 
 * **Reglas de marcado y SEO técnico en Pug:**

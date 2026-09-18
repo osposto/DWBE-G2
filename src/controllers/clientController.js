@@ -119,7 +119,80 @@ class ClienteControlador {
   }
 
   /**
-   * PUT /clientes/:numeroCuenta
+   * GET /clientes/:numeroCuenta/editar
+   * Muestra la vista Pug con el formulario para editar una cuenta existente.
+   */
+  static async mostrarFormularioEdicion(req, res, next) {
+    try {
+      const { numeroCuenta } = req.params;
+      const cliente = await ClienteDAO.buscarPorNumeroCuenta(numeroCuenta);
+
+      if (!cliente) {
+        return res.status(404).render('404', {
+          title: 'Cuenta No Encontrada',
+          description: 'No se encontró la cuenta que desea modificar.',
+          mensajeError: `No se encontró la cuenta ${numeroCuenta} para editar.`
+        });
+      }
+
+      res.render('client-edit', {
+        title: `Modificar Cuenta: ${cliente.numeroCuenta}`,
+        description: `Formulario de edición para la cuenta de ${cliente.nombreCliente}.`,
+        cliente
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /clientes/:numeroCuenta/editar
+   * Procesa la modificación desde el formulario web y redirige a la ficha técnica.
+   */
+  static async procesarEdicionWeb(req, res, next) {
+    try {
+      const { numeroCuenta } = req.params;
+      const clienteActualizado = await ClienteDAO.actualizarTotal(numeroCuenta, req.body);
+
+      if (!clienteActualizado) {
+        return res.status(404).render('404', {
+          title: 'Cuenta No Encontrada',
+          description: 'No se encontró la cuenta para modificar.',
+          mensajeError: `No se encontró la cuenta ${numeroCuenta} para modificar.`
+        });
+      }
+
+      res.redirect(302, `/clientes/${numeroCuenta}`);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * POST /clientes/:numeroCuenta/eliminar
+   * Procesa la baja de la cuenta desde el navegador web y redirige al listado general.
+   */
+  static async procesarEliminacionWeb(req, res, next) {
+    try {
+      const { numeroCuenta } = req.params;
+      const clienteEliminado = await ClienteDAO.eliminar(numeroCuenta);
+
+      if (!clienteEliminado) {
+        return res.status(404).render('404', {
+          title: 'Cuenta No Encontrada',
+          description: 'No se encontró la cuenta que desea eliminar.',
+          mensajeError: `No se encontró la cuenta ${numeroCuenta} para eliminar.`
+        });
+      }
+
+      res.redirect(302, '/clientes');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * PUT /clientes/:numeroCuenta (API)
    * Reemplazo total de los datos de la cuenta.
    */
   static async actualizarClienteTotal(req, res, next) {
@@ -144,7 +217,7 @@ class ClienteControlador {
   }
 
   /**
-   * PATCH /clientes/:numeroCuenta
+   * PATCH /clientes/:numeroCuenta (API)
    * Modificación de campos puntuales de la cuenta.
    */
   static async actualizarClienteParcial(req, res, next) {
@@ -169,7 +242,7 @@ class ClienteControlador {
   }
 
   /**
-   * DELETE /clientes/:numeroCuenta
+   * DELETE /clientes/:numeroCuenta (API)
    * Baja o eliminación física de la cuenta.
    */
   static async eliminarCliente(req, res, next) {

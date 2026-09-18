@@ -33,7 +33,11 @@ block content
                   span.badge(class=`badge-${c.tipoContrato}`)= c.tipoContrato
                 td= c.agronomoAsignado
                 td.cell-actions
-                  a.btn.btn-small(href=`/clientes/${c.numeroCuenta}`) Ver Ficha &rarr;
+                  .actions-group
+                    a.btn.btn-small(href=`/clientes/${c.numeroCuenta}`, title="Ver ficha técnica") Ver
+                    a.btn.btn-small.btn-edit(href=`/clientes/${c.numeroCuenta}/editar`, title="Editar datos") Editar
+                    form(action=`/clientes/${c.numeroCuenta}/eliminar`, method="POST", style="display:inline;", onsubmit="return confirm('¿Confirma que desea eliminar esta cuenta?');")
+                      button.btn.btn-small.btn-danger(type="submit", title="Dar de baja") Borrar
     else
       .empty-box
         p No hay cuentas agropecuarias registradas actualmente.
