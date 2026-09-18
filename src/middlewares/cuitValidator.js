@@ -1,30 +1,25 @@
 /**
- * Middleware: cuitValidator
- * Intercepta las solicitudes de alta de cuenta (POST /clientes).
- * Valida la presencia de los campos requeridos y el formato del CUIT (XX-XXXXXXXX-X).
+ * Middleware: validadorCuit
+ * Valida que los campos obligatorios del alta estén presentes y que el CUIT cumpla el formato XX-XXXXXXXX-X.
  */
 const validarCuitYCampos = (req, res, next) => {
   const {
-    accountNumber,
     numeroCuenta,
-    clientName,
     nombreCliente,
     cuit,
-    contractType,
     tipoContrato,
-    assignedAgronomist,
     agronomoAsignado
   } = req.body;
 
-  const cuenta = (accountNumber || numeroCuenta || '').trim();
-  const nombre = (clientName || nombreCliente || '').trim();
+  const cuenta = (numeroCuenta || '').trim();
+  const nombre = (nombreCliente || '').trim();
   const cuitLimpio = (cuit || '').trim();
-  const contrato = (contractType || tipoContrato || '').trim().toLowerCase();
-  const agronomo = (assignedAgronomist || agronomoAsignado || '').trim();
+  const contrato = (tipoContrato || '').trim().toLowerCase();
+  const agronomo = (agronomoAsignado || '').trim();
 
   const errores = [];
 
-  // 1. Validación de campos obligatorios
+  // 1. Campos obligatorios
   if (!cuenta) {
     errores.push('El número de cuenta es obligatorio.');
   }
@@ -41,36 +36,34 @@ const validarCuitYCampos = (req, res, next) => {
     errores.push('El agrónomo referente asignado es obligatorio.');
   }
 
-  // 2. Validación de tipo de contrato
-  const tiposValidos = ['mensual', 'anual', 'quinquenal'];
-  if (!contrato || !tiposValidos.includes(contrato)) {
-    errores.push(`El tipo de contrato debe ser uno de los siguientes: ${tiposValidos.join(', ')}.`);
+  // 2. Tipo de contrato permitido
+  const contratosValidos = ['mensual', 'anual', 'quinquenal'];
+  if (!contrato || !contratosValidos.includes(contrato)) {
+    errores.push(`El tipo de contrato debe ser: ${contratosValidos.join(', ')}.`);
   }
 
-  // 3. Validación de formato de CUIT (XX-XXXXXXXX-X)
-  // Admite formato estándar argentino con guiones (2 dígitos - 8 dígitos - 1 dígito)
-  const patronCuit = /^\d{2}-\d{8}-\d{1}$/;
-  if (cuitLimpio && !patronCuit.test(cuitLimpio)) {
-    errores.push('El CUIT ingresado no tiene un formato fiscal válido. Formato requerido: XX-XXXXXXXX-X (ejemplo: 30-71234567-8).');
+  // 3. Formato fiscal de CUIT con guiones (XX-XXXXXXXX-X)
+  const patronFiscalCuit = /^\d{2}-\d{8}-\d{1}$/;
+  if (cuitLimpio && !patronFiscalCuit.test(cuitLimpio)) {
+    errores.push('El CUIT ingresado no es válido. Debe tener el formato fiscal XX-XXXXXXXX-X (ejemplo: 30-71234567-8).');
   }
 
-  // Si hay errores, emitir respuesta 400 Bad Request
   if (errores.length > 0) {
-    // Si la petición viene de un formulario HTML tradicional
+    // Si viene desde un formulario HTML tradicional
     if (!req.xhr && !req.headers.accept?.includes('application/json')) {
       return res.status(400).render('client-form', {
-        title: 'Alta de Cuenta - Error de Validación',
-        description: 'Corrija los campos señalados para continuar con el alta comercial.',
+        title: 'Error de Validación - Alta Comercial',
+        description: 'Por favor corrija los campos requeridos.',
         errores,
         valoresPrevios: req.body
       });
     }
 
-    // Si es una petición API / Thunder Client
+    // Si es petición vía API o Thunder Client
     return res.status(400).json({
-      error: 'Error de validación en alta comercial (Proceso P1)',
-      status: 400,
-      detalles: errores
+      error: 'Error de validación en alta de cuenta agropecuaria',
+      estado: 400,
+      errores
     });
   }
 

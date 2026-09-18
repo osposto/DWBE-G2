@@ -79,7 +79,7 @@
       ],
       "body": {
         "type": "json",
-        "raw": "{\n  \"accountNumber\": \"CTA-103\",\n  \"clientName\": \"Cabaña La Ilusión S.A.\",\n  \"cuit\": \"30-75489621-3\",\n  \"contractType\": \"quinquenal\",\n  \"assignedAgronomist\": \"Ing. Sofía Valenzuela\"\n}"
+        "raw": "{\n  \"numeroCuenta\": \"CTA-103\",\n  \"nombreCliente\": \"Cabaña La Ilusión S.A.\",\n  \"cuit\": \"30-75489621-3\",\n  \"tipoContrato\": \"quinquenal\",\n  \"agronomoAsignado\": \"Ing. Sofía Valenzuela\"\n}"
       }
     },
     {
@@ -104,7 +104,7 @@
       ],
       "body": {
         "type": "json",
-        "raw": "{\n  \"accountNumber\": \"CTA-104\",\n  \"clientName\": \"Campo Sin Cuit S.R.L.\",\n  \"cuit\": \"12345\",\n  \"contractType\": \"mensual\",\n  \"assignedAgronomist\": \"Ing. Carlos Paz\"\n}"
+        "raw": "{\n  \"numeroCuenta\": \"CTA-104\",\n  \"nombreCliente\": \"Campo Sin Cuit S.R.L.\",\n  \"cuit\": \"12345\",\n  \"tipoContrato\": \"mensual\",\n  \"agronomoAsignado\": \"Ing. Carlos Paz\"\n}"
       }
     },
     {
@@ -129,7 +129,7 @@
       ],
       "body": {
         "type": "json",
-        "raw": "{\n  \"clientName\": \"Agropecuaria El Ombú Renovada S.A.\",\n  \"cuit\": \"30-71234567-8\",\n  \"contractType\": \"quinquenal\",\n  \"assignedAgronomist\": \"Ing. Marcos Paz Senior\"\n}"
+        "raw": "{\n  \"nombreCliente\": \"Agropecuaria El Ombú Renovada S.A.\",\n  \"cuit\": \"30-71234567-8\",\n  \"tipoContrato\": \"quinquenal\",\n  \"agronomoAsignado\": \"Ing. Marcos Paz Senior\"\n}"
       }
     },
     {
@@ -154,7 +154,7 @@
       ],
       "body": {
         "type": "json",
-        "raw": "{\n  \"assignedAgronomist\": \"Ing. Valentina Morales (Reemplazo)\"\n}"
+        "raw": "{\n  \"agronomoAsignado\": \"Ing. Valentina Morales (Reemplazo)\"\n}"
       }
     },
     {

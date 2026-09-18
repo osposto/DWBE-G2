@@ -1,18 +1,18 @@
 [
   {
-    "accountNumber": "CTA-101",
-    "clientName": "Agropecuaria El Ombú S.A.",
+    "numeroCuenta": "CTA-101",
+    "nombreCliente": "Agropecuaria El Ombú S.A.",
     "cuit": "30-71234567-8",
-    "contractType": "anual",
-    "assignedAgronomist": "Ing. Marcos Paz",
-    "createdAt": "2026-09-18T10:00:00.000Z"
+    "tipoContrato": "anual",
+    "agronomoAsignado": "Ing. Marcos Paz",
+    "fechaCreacion": "2026-09-18T10:00:00.000Z"
   },
   {
-    "accountNumber": "CTA-102",
-    "clientName": "Estancia Los Pinos S.R.L.",
+    "numeroCuenta": "CTA-102",
+    "nombreCliente": "Estancia Los Pinos S.R.L.",
     "cuit": "30-68954123-4",
-    "contractType": "quinquenal",
-    "assignedAgronomist": "Ing. Lucía Fernández",
-    "createdAt": "2026-09-18T10:15:00.000Z"
+    "tipoContrato": "quinquenal",
+    "agronomoAsignado": "Ing. Lucía Fernández",
+    "fechaCreacion": "2026-09-18T10:15:00.000Z"
   }
 ]

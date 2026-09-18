@@ -1,31 +1,31 @@
 const ClienteDAO = require('../models/ClientDAO');
 
 /**
- * Controlador de Clientes Agropecuarios (clientController)
- * Coordina la lógica de negocio entre el DAO de datos y las vistas Pug o respuestas JSON.
+ * Controlador de Clientes Agropecuarios
+ * Gestiona el flujo entre la capa de datos (ClienteDAO) y las respuestas de la aplicación.
  */
 class ClienteControlador {
   /**
    * GET /clientes
-   * Lista todos los clientes registrados.
+   * Lista todas las cuentas agropecuarias registradas.
    */
   static async listarClientes(req, res, next) {
     try {
-      const clientes = await ClienteDAO.obtenerTodos();
+      const listaClientes = await ClienteDAO.obtenerTodos();
 
-      // Si la petición solicita JSON (Thunder Client o API)
-      if (req.xhr || req.headers.accept?.includes('application/json') || req.query.format === 'json') {
+      // Si la petición solicita formato JSON
+      if (req.xhr || req.headers.accept?.includes('application/json') || req.query.formato === 'json') {
         return res.status(200).json({
-          total: clientes.length,
-          clientes: clientes.map(c => c.aObjetoJSON())
+          totalCuentas: listaClientes.length,
+          cuentas: listaClientes.map(c => c.aObjetoJSON())
         });
       }
 
       // Renderiza vista en Pug
       res.render('clients-list', {
-        title: 'Cuentas Agropecuarias Activas - DWBE Agro',
-        description: 'Gestión técnica y comercial de clientes agropecuarios registrados (Proceso P1).',
-        clientes
+        title: 'Cuentas Agropecuarias Activas - AgroGestión P1',
+        description: 'Padrón de cuentas de productores agropecuarios registrados en el sistema.',
+        clientes: listaClientes
       });
     } catch (error) {
       next(error);
@@ -34,18 +34,18 @@ class ClienteControlador {
 
   /**
    * GET /clientes/nuevo
-   * Muestra el formulario de alta comercial (Proceso P1).
+   * Muestra la pantalla del formulario de alta comercial.
    */
   static mostrarFormularioNuevo(req, res) {
     res.render('client-form', {
-      title: 'Alta Comercial de Cuenta Agropecuaria (P1)',
-      description: 'Formulario de registro y validación fiscal para productores y cuentas del agro.'
+      title: 'Alta de Cuenta Agropecuaria - Proceso P1',
+      description: 'Formulario de registro y validación técnica/comercial para productores del agro.'
     });
   }
 
   /**
    * POST /clientes
-   * Procesa el alta de un nuevo cliente.
+   * Registra una nueva cuenta agropecuaria.
    */
   static async crearCliente(req, res, next) {
     try {
@@ -55,20 +55,19 @@ class ClienteControlador {
       if (req.xhr || req.headers.accept?.includes('application/json')) {
         return res.status(201).json({
           mensaje: 'Cuenta agropecuaria registrada exitosamente.',
-          cliente: nuevoCliente.aObjetoJSON()
+          cuenta: nuevoCliente.aObjetoJSON()
         });
       }
 
-      // Si es envío desde formulario HTML web, redirige a la lista
+      // Redirección en formulario web
       res.redirect(302, '/clientes');
     } catch (error) {
-      // Si el número de cuenta ya existía
       if (error.message.includes('Ya existe una cuenta')) {
         if (req.xhr || req.headers.accept?.includes('application/json')) {
           return res.status(400).json({ error: error.message });
         }
         return res.status(400).render('client-form', {
-          title: 'Error de Registro',
+          title: 'Error al Registrar Cuenta',
           description: 'El número de cuenta ya se encuentra registrado.',
           errores: [error.message],
           valoresPrevios: req.body
@@ -79,40 +78,40 @@ class ClienteControlador {
   }
 
   /**
-   * GET /clientes/:accountNumber
-   * Muestra el detalle técnico y comercial de una cuenta específica (Ruta dinámica).
+   * GET /clientes/:numeroCuenta
+   * Ficha técnica dinámica de una cuenta individual.
    */
   static async obtenerDetalleCliente(req, res, next) {
     try {
-      const { accountNumber } = req.params;
-      const cliente = await ClienteDAO.buscarPorNumeroCuenta(accountNumber);
+      const { numeroCuenta } = req.params;
+      const clienteEncontrado = await ClienteDAO.buscarPorNumeroCuenta(numeroCuenta);
 
-      if (!cliente) {
+      if (!clienteEncontrado) {
         if (req.xhr || req.headers.accept?.includes('application/json')) {
           return res.status(404).json({
-            error: 'Cliente no encontrado',
-            mensaje: `No existe ninguna cuenta agropecuaria con el número ${accountNumber}.`,
-            status: 404
+            error: 'Cuenta no encontrada',
+            mensaje: `No existe ninguna cuenta agropecuaria con el identificador ${numeroCuenta}.`,
+            estado: 404
           });
         }
 
         return res.status(404).render('404', {
           title: 'Cuenta No Encontrada',
-          description: 'No se encontró la ficha técnica para la cuenta ingresada.',
-          mensajeError: `No se encontró ninguna cuenta registrada con el número ${accountNumber}.`
+          description: 'No se encontró la cuenta agropecuaria solicitada.',
+          mensajeError: `No se encontró ninguna cuenta registrada con el número ${numeroCuenta}.`
         });
       }
 
       if (req.xhr || req.headers.accept?.includes('application/json')) {
         return res.status(200).json({
-          cliente: cliente.aObjetoJSON()
+          cuenta: clienteEncontrado.aObjetoJSON()
         });
       }
 
       res.render('client-detail', {
-        title: `Ficha Técnica: ${cliente.clientName} (${cliente.accountNumber})`,
-        description: `Información técnica, contrato y agrónomo referente asignado a ${cliente.clientName}.`,
-        cliente
+        title: `Ficha Técnica: ${clienteEncontrado.nombreCliente} (${clienteEncontrado.numeroCuenta})`,
+        description: `Información técnica, contractual y agrónomo referente asignado a ${clienteEncontrado.nombreCliente}.`,
+        cliente: clienteEncontrado
       });
     } catch (error) {
       next(error);
@@ -120,24 +119,24 @@ class ClienteControlador {
   }
 
   /**
-   * PUT /clientes/:accountNumber
-   * Actualización total de los datos de la cuenta comercial.
+   * PUT /clientes/:numeroCuenta
+   * Reemplazo total de los datos de la cuenta.
    */
   static async actualizarClienteTotal(req, res, next) {
     try {
-      const { accountNumber } = req.params;
-      const clienteActualizado = await ClienteDAO.actualizarTotal(accountNumber, req.body);
+      const { numeroCuenta } = req.params;
+      const clienteActualizado = await ClienteDAO.actualizarTotal(numeroCuenta, req.body);
 
       if (!clienteActualizado) {
         return res.status(404).json({
-          error: 'Cliente no encontrado',
-          mensaje: `No se encontró la cuenta ${accountNumber} para actualizar.`
+          error: 'Cuenta no encontrada',
+          mensaje: `No se encontró la cuenta ${numeroCuenta} para actualizar.`
         });
       }
 
       res.status(200).json({
         mensaje: 'Cuenta agropecuaria actualizada exitosamente.',
-        cliente: clienteActualizado.aObjetoJSON()
+        cuenta: clienteActualizado.aObjetoJSON()
       });
     } catch (error) {
       next(error);
@@ -145,24 +144,24 @@ class ClienteControlador {
   }
 
   /**
-   * PATCH /clientes/:accountNumber
-   * Actualización parcial de campos específicos (ej. cambio de agrónomo o tipo de contrato).
+   * PATCH /clientes/:numeroCuenta
+   * Modificación de campos puntuales de la cuenta.
    */
   static async actualizarClienteParcial(req, res, next) {
     try {
-      const { accountNumber } = req.params;
-      const clienteModificado = await ClienteDAO.actualizarParcial(accountNumber, req.body);
+      const { numeroCuenta } = req.params;
+      const clienteModificado = await ClienteDAO.actualizarParcial(numeroCuenta, req.body);
 
       if (!clienteModificado) {
         return res.status(404).json({
-          error: 'Cliente no encontrado',
-          mensaje: `No se encontró la cuenta ${accountNumber} para modificar.`
+          error: 'Cuenta no encontrada',
+          mensaje: `No se encontró la cuenta ${numeroCuenta} para modificar.`
         });
       }
 
       res.status(200).json({
         mensaje: 'Cuenta agropecuaria modificada parcialmente con éxito.',
-        cliente: clienteModificado.aObjetoJSON()
+        cuenta: clienteModificado.aObjetoJSON()
       });
     } catch (error) {
       next(error);
@@ -170,24 +169,24 @@ class ClienteControlador {
   }
 
   /**
-   * DELETE /clientes/:accountNumber
-   * Eliminación o baja de la cuenta agropecuaria.
+   * DELETE /clientes/:numeroCuenta
+   * Baja o eliminación física de la cuenta.
    */
   static async eliminarCliente(req, res, next) {
     try {
-      const { accountNumber } = req.params;
-      const clienteEliminado = await ClienteDAO.eliminar(accountNumber);
+      const { numeroCuenta } = req.params;
+      const clienteEliminado = await ClienteDAO.eliminar(numeroCuenta);
 
       if (!clienteEliminado) {
         return res.status(404).json({
-          error: 'Cliente no encontrado',
-          mensaje: `No se encontró la cuenta ${accountNumber} para eliminar.`
+          error: 'Cuenta no encontrada',
+          mensaje: `No se encontró la cuenta ${numeroCuenta} para eliminar.`
         });
       }
 
       res.status(200).json({
-        mensaje: 'Cuenta agropecuaria eliminada exitosamente de clients.json.',
-        cliente: clienteEliminado.aObjetoJSON()
+        mensaje: 'Cuenta agropecuaria eliminada exitosamente.',
+        cuenta: clienteEliminado.aObjetoJSON()
       });
     } catch (error) {
       next(error);

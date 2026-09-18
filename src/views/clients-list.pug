@@ -26,14 +26,14 @@ block content
           tbody
             each c in clientes
               tr
-                td.cell-account= c.accountNumber
-                td.cell-name= c.clientName
+                td.cell-account= c.numeroCuenta
+                td.cell-name= c.nombreCliente
                 td.cell-cuit= c.cuit
                 td
-                  span.badge(class=`badge-${c.contractType}`)= c.contractType
-                td= c.assignedAgronomist
+                  span.badge(class=`badge-${c.tipoContrato}`)= c.tipoContrato
+                td= c.agronomoAsignado
                 td.cell-actions
-                  a.btn.btn-small(href=`/clientes/${c.accountNumber}`) Ver Ficha &rarr;
+                  a.btn.btn-small(href=`/clientes/${c.numeroCuenta}`) Ver Ficha &rarr;
     else
       .empty-box
         p No hay cuentas agropecuarias registradas actualmente.

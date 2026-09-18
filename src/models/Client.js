@@ -1,70 +1,44 @@
 /**
- * Clase de Dominio: Cliente (Client)
+ * Clase de Dominio: Cliente
  * Representa una cuenta de cliente agropecuario dentro del Proceso P1.
  */
 class Cliente {
   /**
    * Constructor de la entidad Cliente.
-   * @param {Object} datos - Datos iniciales de la cuenta.
+   * @param {Object} datos - Datos de la cuenta agropecuaria.
    */
   constructor({
     numeroCuenta,
-    accountNumber,
     nombreCliente,
-    clientName,
     cuit,
     tipoContrato,
-    contractType,
     agronomoAsignado,
-    assignedAgronomist,
-    fechaCreacion,
-    createdAt
+    fechaCreacion
   }) {
-    this.accountNumber = String(numeroCuenta || accountNumber || '').trim();
-    this.clientName = String(nombreCliente || clientName || '').trim();
+    this.numeroCuenta = String(numeroCuenta || '').trim();
+    this.nombreCliente = String(nombreCliente || '').trim();
     this.cuit = String(cuit || '').trim();
-    this.contractType = String(tipoContrato || contractType || 'anual').toLowerCase().trim();
-    this.assignedAgronomist = String(agronomoAsignado || assignedAgronomist || '').trim();
-    this.createdAt = fechaCreacion || createdAt || new Date().toISOString();
-  }
-
-  // Getters en español para facilitar la lectura didáctica del código
-  get numeroCuenta() {
-    return this.accountNumber;
-  }
-
-  get nombreCliente() {
-    return this.clientName;
-  }
-
-  get tipoContrato() {
-    return this.contractType;
-  }
-
-  get agronomoAsignado() {
-    return this.assignedAgronomist;
-  }
-
-  get fechaCreacion() {
-    return this.createdAt;
+    this.tipoContrato = String(tipoContrato || 'anual').toLowerCase().trim();
+    this.agronomoAsignado = String(agronomoAsignado || '').trim();
+    this.fechaCreacion = fechaCreacion || new Date().toISOString();
   }
 
   /**
-   * Devuelve la representación en objeto plano para serialización en JSON.
+   * Convierte la entidad a un objeto plano serializable.
    * @returns {Object}
    */
   aObjetoJSON() {
     return {
-      accountNumber: this.accountNumber,
-      clientName: this.clientName,
+      numeroCuenta: this.numeroCuenta,
+      nombreCliente: this.nombreCliente,
       cuit: this.cuit,
-      contractType: this.contractType,
-      assignedAgronomist: this.assignedAgronomist,
-      createdAt: this.createdAt
+      tipoContrato: this.tipoContrato,
+      agronomoAsignado: this.agronomoAsignado,
+      fechaCreacion: this.fechaCreacion
     };
   }
 
-  // Alias estándar para JSON.stringify()
+  // Método estándar para JSON.stringify()
   toJSON() {
     return this.aObjetoJSON();
   }

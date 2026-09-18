@@ -46,3 +46,4 @@
 - **Pantalla:** Portada de la aplicación o cámara de los integrantes.
 - **Integrante 1 y 2:**
   > *"El proyecto cumple con la totalidad de los requisitos del Master Outline, manteniendo un código limpio, modular y fácil de mantener. Muchas gracias por su atención."*
+

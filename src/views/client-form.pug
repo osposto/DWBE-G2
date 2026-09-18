@@ -15,23 +15,23 @@ block content
   section.form-container
     form.client-form(action="/clientes", method="POST")
       .form-group
-        label(for="accountNumber") Número de Cuenta / Identificador Único:
-        input#accountNumber.form-control(
+        label(for="numeroCuenta") Número de Cuenta / Identificador Único:
+        input#numeroCuenta.form-control(
           type="text",
-          name="accountNumber",
+          name="numeroCuenta",
           placeholder="Ej. CTA-103",
-          value=(valoresPrevios && valoresPrevios.accountNumber ? valoresPrevios.accountNumber : ""),
+          value=(valoresPrevios && valoresPrevios.numeroCuenta ? valoresPrevios.numeroCuenta : ""),
           required
         )
         small.form-hint Identificador alfanumérico correlativo de la cuenta agropecuaria.
 
       .form-group
-        label(for="clientName") Razón Social o Nombre del Productor:
-        input#clientName.form-control(
+        label(for="nombreCliente") Razón Social o Nombre del Productor:
+        input#nombreCliente.form-control(
           type="text",
-          name="clientName",
+          name="nombreCliente",
           placeholder="Ej. La Tranquera S.A.",
-          value=(valoresPrevios && valoresPrevios.clientName ? valoresPrevios.clientName : ""),
+          value=(valoresPrevios && valoresPrevios.nombreCliente ? valoresPrevios.nombreCliente : ""),
           required
         )
 
@@ -49,19 +49,19 @@ block content
         small.form-hint Formato fiscal requerido: XX-XXXXXXXX-X (con guiones).
 
       .form-group
-        label(for="contractType") Tipo de Contrato:
-        select#contractType.form-control(name="contractType", required)
-          option(value="mensual", selected=(valoresPrevios && valoresPrevios.contractType === 'mensual')) Mensual
-          option(value="anual", selected=(!valoresPrevios || valoresPrevios.contractType === 'anual')) Anual
-          option(value="quinquenal", selected=(valoresPrevios && valoresPrevios.contractType === 'quinquenal')) Quinquenal
+        label(for="tipoContrato") Tipo de Contrato:
+        select#tipoContrato.form-control(name="tipoContrato", required)
+          option(value="mensual", selected=(valoresPrevios && valoresPrevios.tipoContrato === 'mensual')) Mensual
+          option(value="anual", selected=(!valoresPrevios || valoresPrevios.tipoContrato === 'anual')) Anual
+          option(value="quinquenal", selected=(valoresPrevios && valoresPrevios.tipoContrato === 'quinquenal')) Quinquenal
 
       .form-group
-        label(for="assignedAgronomist") Agrónomo Referente Asignado:
-        input#assignedAgronomist.form-control(
+        label(for="agronomoAsignado") Agrónomo Referente Asignado:
+        input#agronomoAsignado.form-control(
           type="text",
-          name="assignedAgronomist",
+          name="agronomoAsignado",
           placeholder="Ej. Ing. Martín Gómez",
-          value=(valoresPrevios && valoresPrevios.assignedAgronomist ? valoresPrevios.assignedAgronomist : ""),
+          value=(valoresPrevios && valoresPrevios.agronomoAsignado ? valoresPrevios.agronomoAsignado : ""),
           required
         )
         small.form-hint Profesional técnico a cargo del asesoramiento del campo.

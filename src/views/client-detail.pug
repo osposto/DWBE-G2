@@ -6,7 +6,7 @@ block content
       li
         a(href="/clientes") Cuentas Agropecuarias
       li.separator /
-      li.active(aria-current="page")= cliente.accountNumber
+      li.active(aria-current="page")= cliente.numeroCuenta
 
   section.page-heading
     h1 Ficha Técnica de Cuenta Agropecuaria
@@ -15,15 +15,15 @@ block content
   article.detail-card
     .detail-header
       .detail-title-group
-        h2.client-name= cliente.clientName
-        span.badge(class=`badge-${cliente.contractType}`)= `Contrato ${cliente.contractType}`
-      span.account-badge Cuenta N° #{cliente.accountNumber}
+        h2.client-name= cliente.nombreCliente
+        span.badge(class=`badge-${cliente.tipoContrato}`)= `Contrato ${cliente.tipoContrato}`
+      span.account-badge Cuenta N° #{cliente.numeroCuenta}
 
     .detail-body
       dl.data-grid
         .data-item
           dt Razón Social / Productor:
-          dd= cliente.clientName
+          dd= cliente.nombreCliente
 
         .data-item
           dt Clave Única de Identificación Tributaria (CUIT):
@@ -31,15 +31,15 @@ block content
 
         .data-item
           dt Agrónomo Referente Asignado:
-          dd= cliente.assignedAgronomist
+          dd= cliente.agronomoAsignado
 
         .data-item
           dt Modalidad de Contrato:
-          dd(style="text-transform: capitalize;")= cliente.contractType
+          dd(style="text-transform: capitalize;")= cliente.tipoContrato
 
         .data-item
           dt Fecha de Alta en el Sistema:
-          dd= cliente.createdAt
+          dd= cliente.fechaCreacion
 
     .detail-footer
       a.btn.btn-secondary(href="/clientes") &larr; Volver al Listado de Cuentas

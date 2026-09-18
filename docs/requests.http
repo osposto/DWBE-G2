@@ -25,11 +25,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "accountNumber": "CTA-103",
-  "clientName": "Cabaña La Ilusión S.A.",
+  "numeroCuenta": "CTA-103",
+  "nombreCliente": "Cabaña La Ilusión S.A.",
   "cuit": "30-75489621-3",
-  "contractType": "quinquenal",
-  "assignedAgronomist": "Ing. Sofía Valenzuela"
+  "tipoContrato": "quinquenal",
+  "agronomoAsignado": "Ing. Sofía Valenzuela"
 }
 
 ### 6. POST /clientes - Alta fallida por CUIT inválido (400 Bad Request)
@@ -38,11 +38,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "accountNumber": "CTA-104",
-  "clientName": "Productor Sin Cuit Válido S.R.L.",
+  "numeroCuenta": "CTA-104",
+  "nombreCliente": "Productor Sin Cuit Válido S.R.L.",
   "cuit": "12345",
-  "contractType": "mensual",
-  "assignedAgronomist": "Ing. Carlos Paz"
+  "tipoContrato": "mensual",
+  "agronomoAsignado": "Ing. Carlos Paz"
 }
 
 ### 7. PUT /clientes/CTA-101 - Actualización total de cuenta (200 OK)
@@ -51,10 +51,10 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "clientName": "Agropecuaria El Ombú Renovada S.A.",
+  "nombreCliente": "Agropecuaria El Ombú Renovada S.A.",
   "cuit": "30-71234567-8",
-  "contractType": "quinquenal",
-  "assignedAgronomist": "Ing. Marcos Paz Senior"
+  "tipoContrato": "quinquenal",
+  "agronomoAsignado": "Ing. Marcos Paz Senior"
 }
 
 ### 8. PATCH /clientes/CTA-101 - Modificación puntual de agrónomo (200 OK)
@@ -63,7 +63,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "assignedAgronomist": "Ing. Valentina Morales (Reemplazo)"
+  "agronomoAsignado": "Ing. Valentina Morales (Reemplazo)"
 }
 
 ### 9. DELETE /clientes/CTA-102 - Eliminación o baja de cuenta (200 OK)

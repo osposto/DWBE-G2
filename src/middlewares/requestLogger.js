@@ -9,3 +9,4 @@ const registrarPeticion = (req, res, next) => {
 };
 
 module.exports = registrarPeticion;
+

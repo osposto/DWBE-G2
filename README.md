@@ -110,10 +110,10 @@ Abrir en el navegador web:
 | `GET` | `/clientes` | Vista / JSON | `200 OK` | `500` | Renderiza la tabla de cuentas o devuelve el JSON. |
 | `GET` | `/clientes/nuevo` | Vista HTML | `200 OK` | `500` | Renderiza el formulario de alta comercial accesible. |
 | `POST` | `/clientes` | Form / API | `201 / 302` | `400` | Procesa el alta, valida el CUIT y persiste en `clients.json`. |
-| `GET` | `/clientes/:accountNumber` | Vista / JSON | `200 OK` | `404` | Ficha técnica de la cuenta por parámetro de ruta dinámico. |
-| `PUT` | `/clientes/:accountNumber` | API REST | `200 OK` | `404` | Actualización total de los datos de la cuenta. |
-| `PATCH` | `/clientes/:accountNumber` | API REST | `200 OK` | `404` | Modificación parcial de campos específicos (agrónomo, contrato). |
-| `DELETE` | `/clientes/:accountNumber` | API REST | `200 OK` | `404` | Eliminación física de la cuenta en `clients.json`. |
+| `GET` | `/clientes/:numeroCuenta` | Vista / JSON | `200 OK` | `404` | Ficha técnica de la cuenta por parámetro de ruta dinámico. |
+| `PUT` | `/clientes/:numeroCuenta` | API REST | `200 OK` | `404` | Actualización total de los datos de la cuenta. |
+| `PATCH` | `/clientes/:numeroCuenta` | API REST | `200 OK` | `404` | Modificación parcial de campos específicos (agrónomo, contrato). |
+| `DELETE` | `/clientes/:numeroCuenta` | API REST | `200 OK` | `404` | Eliminación física de la cuenta en `clients.json`. |
 
 ---
 
@@ -148,3 +148,4 @@ En la carpeta [`docs/`](docs/) se incluyen los recursos de validación:
 
 ## 8. Video Explicativo de la Solución
 - **Enlace al video:** *[Pendiente de grabación / insertar link aquí]*
+
