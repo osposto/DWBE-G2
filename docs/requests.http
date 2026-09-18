@@ -73,3 +73,4 @@ DELETE {{baseUrl}}/items/2
 ### 14. GET /ruta-inexistente - Error global 404 (404 Not Found)
 GET {{baseUrl}}/ruta-inexistente
 Accept: application/json
+
