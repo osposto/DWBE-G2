@@ -1,0 +1,13 @@
+extends layout.pug
+
+block content
+  section.error-section
+    .error-card
+      span.error-badge 404
+      h1 Recurso No Encontrado
+      p.error-message= mensajeError || "La cuenta agropecuaria o página solicitada no existe en el sistema."
+      if rutaSolicitada
+        p.error-subtext Ruta consultada: <code>#{rutaSolicitada}</code>
+      .error-actions
+        a.btn.btn-primary(href="/clientes") Volver al Listado de Cuentas
+        a.btn.btn-secondary(href="/clientes/nuevo") Registrar Nueva Cuenta

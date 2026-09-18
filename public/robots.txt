@@ -1,0 +1,5 @@
+# Robots.txt - AgroGestión P1 (DWBE TP1)
+User-agent: *
+Allow: /
+Allow: /clientes
+Disallow: /clientes/nuevo

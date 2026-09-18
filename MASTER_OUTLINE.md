@@ -1,120 +1,105 @@
-1. Definición y Alcance del Proyecto
+Este esquema maestro adapta el plan integral de desarrollo para un equipo de dos integrantes, optimizando la división de tareas, la arquitectura modular con POO, la persistencia en JSON y los estándares de SEO técnico y semántica web.
 
-    Temática de la aplicación: Selección de un dominio acotado (catálogo de productos, biblioteca de libros o gestión de turnos).
+**1. Matriz de Roles y Responsabilidades (2 Integrantes)**
 
-    Estructura del almacenamiento local: Definición del esquema de datos dentro del archivo data.json.
+| Aspecto | Integrante 1: Backend & Arquitectura de Datos | Integrante 2: Vistas, UI/UX & Pruebas |
+| --- | --- | --- |
+| **Responsabilidades Core** | Inicialización de Express, ruteo dinámico, modelos POO, persistencia en `clients.json` y middlewares. | Plantillas Pug semánticas, SEO técnico (metadatos, estructura de títulos), estilos y pruebas ThunderClient. |
+| **Entregables Clave** | `app.js`, `src/models/*`, `src/controllers/*`, `src/middlewares/*`. | `src/views/*`, maquetación responsive, capturas en `/docs`, guión del video. |
+| **Documentación** | Explicación técnica de arquitectura y endpoints en `README.md`. | Matriz de roles, bibliografía formal consultada y edición del video. |
 
-    Asignación de roles y responsabilidades:
+---
 
-        Responsable de arquitectura de datos y modelos (POO).
+**2. Arquitectura de Directorios**
 
-        Responsable de rutas, middlewares y controladores.
+* `/`: `app.js`, `package.json`, `.gitignore`, `README.md`.
+* `src/`:
+* `models/`: `Client.js` (clase de dominio) y `ClientDAO.js` (acceso a datos con `fs/promises`).
+* `controllers/`: `clientController.js` (lógica de negocio y renderizado).
+* `routes/`: `clientRoutes.js` (enrutador modular de Express).
+* `middlewares/`: `cuitValidator.js` (validación fiscal), `requestLogger.js` y `errorHandler.js`.
+* `data/`: `clients.json` (archivo de almacenamiento inicializado como array vacío `[]`).
+* `views/`: `layout.pug`, `clients-list.pug`, `client-form.pug` y `client-detail.pug`.
 
-        Responsable de vistas (Pug), maquetado semántico y SEO on-page.
 
-        Responsable de pruebas (ThunderClient), documentación y video.
+* `public/`: `css/styles.css` (estilos accesibles y ligeros), `robots.txt`.
+* `docs/`: Carpeta con capturas de evidencia de ThunderClient.
 
-2. Arquitectura de la Solución y Buenas Prácticas
+---
 
-    Patrón de diseño: Separación de responsabilidades bajo el patrón MVC (Modelo - Vista - Controlador).
+**3. Modelo de Dominio y Persistencia (POO + JSON)**
 
-    Estructura modular de carpetas:
-    Plaintext
+* **Estructura del registro en `clients.json`:**
+* `accountNumber` (String): Identificador único o número correlativo de cuenta.
+* `clientName` (String): Razón social o nombre del productor.
+* `cuit` (String): Clave fiscal validada (formato `XX-XXXXXXXX-X`).
+* `contractType` (Enum): `'mensual'`, `'anual'` o `'quinquenal'`.
+* `assignedAgronomist` (String): Nombre del agrónomo referente asignado.
+* `createdAt` (String ISO): Fecha de registro para trazabilidad técnica.
 
-    ├── src/
-    │   ├── controllers/      # Lógica de negocio para cada ruta
-    │   ├── models/           # Clases POO y manejo de data.json
-    │   ├── routes/           # Definición de rutas y endpoints
-    │   ├── middlewares/      # Funciones intermedias (validaciones, logs)
-    │   ├── views/            # Plantillas Pug (layouts, parciales, páginas)
-    │   └── public/           # Archivos estáticos (CSS, JS cliente, imágenes)
-    ├── data/
-    │   └── items.json        # Base de datos basada en JSON
-    ├── docs/                 # Evidencias ThunderClient y guion de video
-    ├── app.js                # Configuración principal de Express
-    └── server.js             # Punto de entrada y levantamiento del servidor
 
-    Programación Orientada a Objetos (POO):
+* **Diseño orientado a objetos:**
+* **Clase `Client`:** Modela la entidad con encapsulamiento, constructor con asignación de atributos y método `toJSON()` para serialización limpia.
+* **Clase `ClientDAO` / `ClientModel`:** Métodos estáticos asíncronos (`findAll()`, `findByAccountNumber()`, `save()`, `update()`, `patch()`, `delete()`) implementados con `fs.promises.readFile` y `fs.promises.writeFile`, garantizando transacciones seguras sin romper el parseo del JSON.
 
-        Clase base Model o entidad específica (ej. ProductManager o Entity) con métodos: findAll(), findById(), create(), update(), delete().
 
-        Encapsulamiento del módulo nativo fs/promises para lectura y escritura atómica del archivo JSON.
 
-3. Implementación Técnica
-Configuración del Servidor y Motor de Vistas
+---
 
-    Inicialización de dependencias (express, pug).
+**4. Rutas Dinámicas, Middlewares y Vistas con Pug**
 
-    Configuración de Pug: app.set('view engine', 'pug') y app.set('views', path.join(__dirname, 'views')).
+* **Flujo de middlewares en Express:**
+* Parsing nativo: `express.urlencoded({ extended: true })` y `express.json()`.
+* Logger de peticiones: Registra en consola método HTTP, ruta y timestamp.
+* `cuitValidator`: Middleware que intercepta el `POST`, valida la longitud/formato del CUIT y los campos requeridos antes de alcanzar el controlador.
 
-    Carpeta pública para recursos estáticos mediante express.static.
 
-Enrutamiento y Rutas Dinámicas
+* **Endpoints modulares (`/clientes`):**
+* `GET /clientes`: Renderiza la tabla o tarjetas de clientes activos.
+* `GET /clientes/nuevo`: Renderiza el formulario de alta comercial (P1).
+* `POST /clientes`: Procesa el alta, guarda en JSON y redirige a la lista con código 302 o 201.
+* `GET /clientes/:accountNumber`: **Ruta dinámica** que busca por parámetro de ruta y renderiza la ficha técnica individual (`client-detail.pug`).
+* `PUT /clientes/:accountNumber`: Actualización completa de una cuenta agropecuaria persistiendo en JSON.
+* `PATCH /clientes/:accountNumber`: Actualización parcial de campos específicos (ej. cambio de agrónomo o contrato).
+* `DELETE /clientes/:accountNumber`: Eliminación o baja física de la cuenta en `clients.json`.
 
-    Configuración de rutas estáticas (/, /about, /items).
 
-    Implementación de rutas dinámicas con parámetros de ruta:
+* **Reglas de marcado y SEO técnico en Pug:**
+* `layout.pug`: Contiene encabezado semántico `<head>` con `meta(charset="utf-8")`, `meta(name="viewport", content="width=device-width, initial-scale=1.0")`, `meta(name="description")` descriptivo, y estructura base `<header>`, `<nav>`, `<main>` y `<footer>`.
+* Jerarquía de encabezados estricta: un único `h1` por vista, seguido de `h2` para secciones secundarias.
+* Formularios accesibles: atributos `for` e `id` vinculados en cada `<label>` e `<input>`, validación HTML5 nativa (`required`, `pattern`).
 
-        GET /items/:id: Detalle de elemento con vista renderizada.
 
-        PUT /items/:id o DELETE /items/:id: Operaciones específicas consumibles vía API.
 
-    Parámetros de consulta (req.query) para filtros o búsquedas simples.
+---
 
-Middlewares
+**5. Plan de Pruebas con ThunderClient**
 
-    Middlewares globales:
+* **Casos de prueba a registrar:**
+* `POST /clientes` exitoso: Envío de payload JSON con los 5 campos obligatorios. Validación de código HTTP 201/302 y verificación en el archivo `clients.json`.
+* `POST /clientes` fallido: Envío de payload con CUIT mal formado o campo faltante. Validación de código de error 400 emitido por el middleware.
+* `GET /clientes/:accountNumber`: Petición a cuenta existente para validar resolución de ruta dinámica y respuesta correcta (200 OK).
+* `PUT /clientes/:accountNumber`: Actualización completa de datos con verificación de código 200 OK y actualización en `clients.json`.
+* `PATCH /clientes/:accountNumber`: Modificación puntual (ej. nuevo agrónomo asignado) con verificación de código 200 OK.
+* `DELETE /clientes/:accountNumber`: Eliminación de cuenta con verificación de código 200 OK y posterior 404 Not Found al intentar consultarla.
 
-        express.json() y express.urlencoded({ extended: true }) para procesamiento de payloads.
 
-        Logger de peticiones (método, ruta, timestamp).
+* **Evidencia requerida:** Exportación de la colección o captura de pantalla nítida guardada en `docs/evidence-thunderclient.png`.
 
-    Middlewares a nivel de ruta:
+---
 
-        Validador de existencia de ID o de campos requeridos antes de procesar la solicitud.
+**6. Estructura de Documentación y Video Final**
 
-    Middleware de manejo de errores:
+* **`README.md`:**
+* Instrucciones de clonación, instalación (`npm install`) y ejecución (`npm run dev` o `npm start`).
+* Descripción funcional del Proceso P1 (Alta comercial y técnica de cuentas agropecuarias).
+* Tabla de integrantes con roles y asignación de tareas específicas.
+* Sección de bibliografía técnica: enlaces a la documentación oficial de Node.js, Express.js y Pug template engine.
+* Enlace al video explicativo alojado (YouTube, Drive o Vimeo).
 
-        Captura de rutas no encontradas (error 404 con vista amigable).
 
-        Manejador global de excepciones (error 500).
-
-Plantillas Pug y Optimización Semántica (SEO)
-
-    Layout base (layout.pug) con encabezados estándar:
-
-        Etiquetas <title> y <meta name="description"> contextuales según la vista.
-
-        Marcado jerárquico estricto (h1, h2, main, nav, footer).
-
-        Inclusión de atributos alt descriptivos en imágenes.
-
-    Vistas hijas: listado general y detalle dinámico por ID.
-
-4. Pruebas y Validación (ThunderClient)
-
-    Diseño del plan de pruebas:
-
-        Petición GET a colecciones y a rutas dinámicas /items/:id.
-
-        Petición POST con body en formato JSON para verificar escritura en data.json.
-
-        Casos de error controlados: búsqueda de un ID inexistente (código de estado 404).
-
-    Captura de evidencias: Guardado de capturas de pantalla de ThunderClient con código de estado HTTP, tiempo de respuesta y payload devuelto visible.
-
-5. Documentación y Entrega
-
-    Archivo README.md exhaustivo:
-
-        Descripción funcional del sistema.
-
-        Instrucciones de instalación y ejecución (npm install, npm start).
-
-        Mapa de endpoints y rutas disponibles.
-
-        Cuadro de roles, tareas asignadas y grado de participación.
-
-        Bibliografía y referencias consultadas (documentación oficial de Node.js, Express, Pug, etc.).
-
-    Evidencias de prueba: Directorio /docs/pruebas con las capturas de ThunderClient comentadas.
+* **Guión del video explicativo (duración recomendada: 3 a 5 minutos):**
+* *Minuto 0:00 - 0:45:* Presentación conjunta, resumen del proceso P1 y demostración visual en navegador.
+* *Minuto 0:45 - 2:15:* **Integrante 1:** Explica la estructura de clases en POO, el DAO para el archivo JSON, la ruta dinámica y los middlewares.
+* *Minuto 2:15 - 3:45:* **Integrante 2:** Explica la arquitectura de vistas en Pug, accesibilidad del formulario, semántica SEO y ejecución de pruebas en ThunderClient.
+* *Minuto 3:45 - 4:00:* Conclusión y cierre.

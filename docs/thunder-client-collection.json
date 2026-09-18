@@ -1,0 +1,178 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "AgroGestión P1 - Colección Thunder Client",
+  "collectionId": "agro-p1-collection",
+  "dateExported": "2026-09-18",
+  "version": "1.2",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "tc-req-1",
+      "colId": "agro-p1-collection",
+      "containerId": "",
+      "name": "1. GET /clientes - Listar Cuentas Agropecuarias (JSON)",
+      "url": "http://localhost:3000/clientes",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2026-09-18",
+      "modified": "2026-09-18",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "tc-req-2",
+      "colId": "agro-p1-collection",
+      "containerId": "",
+      "name": "2. GET /clientes/CTA-101 - Detalle de Cuenta Existente (200 OK)",
+      "url": "http://localhost:3000/clientes/CTA-101",
+      "method": "GET",
+      "sortNum": 20000,
+      "created": "2026-09-18",
+      "modified": "2026-09-18",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "tc-req-3",
+      "colId": "agro-p1-collection",
+      "containerId": "",
+      "name": "3. GET /clientes/CTA-INEXISTENTE - Cuenta Inexistente (404 Not Found)",
+      "url": "http://localhost:3000/clientes/CTA-INEXISTENTE",
+      "method": "GET",
+      "sortNum": 30000,
+      "created": "2026-09-18",
+      "modified": "2026-09-18",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "tc-req-4",
+      "colId": "agro-p1-collection",
+      "containerId": "",
+      "name": "4. POST /clientes - Alta Exitosa de Cuenta (201 Created)",
+      "url": "http://localhost:3000/clientes",
+      "method": "POST",
+      "sortNum": 40000,
+      "created": "2026-09-18",
+      "modified": "2026-09-18",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"accountNumber\": \"CTA-103\",\n  \"clientName\": \"Cabaña La Ilusión S.A.\",\n  \"cuit\": \"30-75489621-3\",\n  \"contractType\": \"quinquenal\",\n  \"assignedAgronomist\": \"Ing. Sofía Valenzuela\"\n}"
+      }
+    },
+    {
+      "_id": "tc-req-5",
+      "colId": "agro-p1-collection",
+      "containerId": "",
+      "name": "5. POST /clientes - Alta Fallida CUIT Inválido (400 Bad Request)",
+      "url": "http://localhost:3000/clientes",
+      "method": "POST",
+      "sortNum": 50000,
+      "created": "2026-09-18",
+      "modified": "2026-09-18",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"accountNumber\": \"CTA-104\",\n  \"clientName\": \"Campo Sin Cuit S.R.L.\",\n  \"cuit\": \"12345\",\n  \"contractType\": \"mensual\",\n  \"assignedAgronomist\": \"Ing. Carlos Paz\"\n}"
+      }
+    },
+    {
+      "_id": "tc-req-6",
+      "colId": "agro-p1-collection",
+      "containerId": "",
+      "name": "6. PUT /clientes/CTA-101 - Actualización Total (200 OK)",
+      "url": "http://localhost:3000/clientes/CTA-101",
+      "method": "PUT",
+      "sortNum": 60000,
+      "created": "2026-09-18",
+      "modified": "2026-09-18",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"clientName\": \"Agropecuaria El Ombú Renovada S.A.\",\n  \"cuit\": \"30-71234567-8\",\n  \"contractType\": \"quinquenal\",\n  \"assignedAgronomist\": \"Ing. Marcos Paz Senior\"\n}"
+      }
+    },
+    {
+      "_id": "tc-req-7",
+      "colId": "agro-p1-collection",
+      "containerId": "",
+      "name": "7. PATCH /clientes/CTA-101 - Modificación Parcial (200 OK)",
+      "url": "http://localhost:3000/clientes/CTA-101",
+      "method": "PATCH",
+      "sortNum": 70000,
+      "created": "2026-09-18",
+      "modified": "2026-09-18",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"assignedAgronomist\": \"Ing. Valentina Morales (Reemplazo)\"\n}"
+      }
+    },
+    {
+      "_id": "tc-req-8",
+      "colId": "agro-p1-collection",
+      "containerId": "",
+      "name": "8. DELETE /clientes/CTA-102 - Eliminación de Cuenta (200 OK)",
+      "url": "http://localhost:3000/clientes/CTA-102",
+      "method": "DELETE",
+      "sortNum": 80000,
+      "created": "2026-09-18",
+      "modified": "2026-09-18",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    }
+  ]
+}

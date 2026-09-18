@@ -1,0 +1,24 @@
+{
+  "name": "gestion-cuentas-agropecuarias",
+  "version": "1.0.0",
+  "description": "Sistema de Gestión de Cuentas Agropecuarias - Proceso P1 (DWBE TP1)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [
+    "express",
+    "pug",
+    "poo",
+    "agro",
+    "mvc",
+    "crud"
+  ],
+  "author": "Equipo DWBE",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "pug": "^3.0.3"
+  }
+}

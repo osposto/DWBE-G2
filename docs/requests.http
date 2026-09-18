@@ -1,0 +1,75 @@
+### ==========================================================================
+### AGROGESTIÓN P1 - ARCHIVO DE PRUEBAS HTTP (REST Client para VS Code)
+### ==========================================================================
+
+@baseUrl = http://localhost:3000
+
+### 1. GET /clientes - Listar cuentas en HTML (Navegador)
+GET {{baseUrl}}/clientes
+
+### 2. GET /clientes - Listar cuentas en formato JSON (API)
+GET {{baseUrl}}/clientes
+Accept: application/json
+
+### 3. GET /clientes/CTA-101 - Ficha técnica de cuenta existente (200 OK)
+GET {{baseUrl}}/clientes/CTA-101
+Accept: application/json
+
+### 4. GET /clientes/CTA-INEXISTENTE - Consulta de cuenta inexistente (404 Not Found)
+GET {{baseUrl}}/clientes/CTA-INEXISTENTE
+Accept: application/json
+
+### 5. POST /clientes - Alta comercial exitosa (201 Created)
+POST {{baseUrl}}/clientes
+Content-Type: application/json
+Accept: application/json
+
+{
+  "accountNumber": "CTA-103",
+  "clientName": "Cabaña La Ilusión S.A.",
+  "cuit": "30-75489621-3",
+  "contractType": "quinquenal",
+  "assignedAgronomist": "Ing. Sofía Valenzuela"
+}
+
+### 6. POST /clientes - Alta fallida por CUIT inválido (400 Bad Request)
+POST {{baseUrl}}/clientes
+Content-Type: application/json
+Accept: application/json
+
+{
+  "accountNumber": "CTA-104",
+  "clientName": "Productor Sin Cuit Válido S.R.L.",
+  "cuit": "12345",
+  "contractType": "mensual",
+  "assignedAgronomist": "Ing. Carlos Paz"
+}
+
+### 7. PUT /clientes/CTA-101 - Actualización total de cuenta (200 OK)
+PUT {{baseUrl}}/clientes/CTA-101
+Content-Type: application/json
+Accept: application/json
+
+{
+  "clientName": "Agropecuaria El Ombú Renovada S.A.",
+  "cuit": "30-71234567-8",
+  "contractType": "quinquenal",
+  "assignedAgronomist": "Ing. Marcos Paz Senior"
+}
+
+### 8. PATCH /clientes/CTA-101 - Modificación puntual de agrónomo (200 OK)
+PATCH {{baseUrl}}/clientes/CTA-101
+Content-Type: application/json
+Accept: application/json
+
+{
+  "assignedAgronomist": "Ing. Valentina Morales (Reemplazo)"
+}
+
+### 9. DELETE /clientes/CTA-102 - Eliminación o baja de cuenta (200 OK)
+DELETE {{baseUrl}}/clientes/CTA-102
+Accept: application/json
+
+### 10. GET /clientes/CTA-102 - Verificación de baja (404 Not Found)
+GET {{baseUrl}}/clientes/CTA-102
+Accept: application/json

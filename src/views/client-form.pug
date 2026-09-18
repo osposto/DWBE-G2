@@ -1,0 +1,71 @@
+extends layout.pug
+
+block content
+  section.page-heading
+    h1 Alta Comercial de Cuenta Agropecuaria (P1)
+    p.subtitle Ingrese los datos técnicos y fiscales del productor para la apertura de cuenta.
+
+  if errores && errores.length > 0
+    .alert.alert-error(role="alert")
+      h2 Atención: Se detectaron errores
+      ul
+        each error in errores
+          li= error
+
+  section.form-container
+    form.client-form(action="/clientes", method="POST")
+      .form-group
+        label(for="accountNumber") Número de Cuenta / Identificador Único:
+        input#accountNumber.form-control(
+          type="text",
+          name="accountNumber",
+          placeholder="Ej. CTA-103",
+          value=(valoresPrevios && valoresPrevios.accountNumber ? valoresPrevios.accountNumber : ""),
+          required
+        )
+        small.form-hint Identificador alfanumérico correlativo de la cuenta agropecuaria.
+
+      .form-group
+        label(for="clientName") Razón Social o Nombre del Productor:
+        input#clientName.form-control(
+          type="text",
+          name="clientName",
+          placeholder="Ej. La Tranquera S.A.",
+          value=(valoresPrevios && valoresPrevios.clientName ? valoresPrevios.clientName : ""),
+          required
+        )
+
+      .form-group
+        label(for="cuit") CUIT (Clave Fiscal):
+        input#cuit.form-control(
+          type="text",
+          name="cuit",
+          placeholder="30-71234567-8",
+          pattern="^\\d{2}-\\d{8}-\\d{1}$",
+          title="El formato debe ser XX-XXXXXXXX-X con guiones incluidos",
+          value=(valoresPrevios && valoresPrevios.cuit ? valoresPrevios.cuit : ""),
+          required
+        )
+        small.form-hint Formato fiscal requerido: XX-XXXXXXXX-X (con guiones).
+
+      .form-group
+        label(for="contractType") Tipo de Contrato:
+        select#contractType.form-control(name="contractType", required)
+          option(value="mensual", selected=(valoresPrevios && valoresPrevios.contractType === 'mensual')) Mensual
+          option(value="anual", selected=(!valoresPrevios || valoresPrevios.contractType === 'anual')) Anual
+          option(value="quinquenal", selected=(valoresPrevios && valoresPrevios.contractType === 'quinquenal')) Quinquenal
+
+      .form-group
+        label(for="assignedAgronomist") Agrónomo Referente Asignado:
+        input#assignedAgronomist.form-control(
+          type="text",
+          name="assignedAgronomist",
+          placeholder="Ej. Ing. Martín Gómez",
+          value=(valoresPrevios && valoresPrevios.assignedAgronomist ? valoresPrevios.assignedAgronomist : ""),
+          required
+        )
+        small.form-hint Profesional técnico a cargo del asesoramiento del campo.
+
+      .form-actions
+        button.btn.btn-primary(type="submit") Guardar Cuenta Agropecuaria
+        a.btn.btn-secondary(href="/clientes") Cancelar

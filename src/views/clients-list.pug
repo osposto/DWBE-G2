@@ -1,0 +1,40 @@
+extends layout.pug
+
+block content
+  section.page-heading
+    .heading-wrapper
+      h1 Cuentas Agropecuarias Registradas
+      p.subtitle Proceso P1: Gestión comercial y técnica de productores agropecuarios
+
+    .heading-actions
+      a.btn.btn-primary(href="/clientes/nuevo") + Alta de Cuenta
+
+  section.clients-section
+    h2 Listado Oficial de Productores
+    if clientes && clientes.length > 0
+      .table-responsive
+        table.data-table
+          caption.visually-hidden Registro de cuentas agropecuarias vigentes
+          thead
+            tr
+              th(scope="col") N° de Cuenta
+              th(scope="col") Productor / Razón Social
+              th(scope="col") CUIT
+              th(scope="col") Contrato
+              th(scope="col") Agrónomo Referente
+              th(scope="col") Acciones
+          tbody
+            each c in clientes
+              tr
+                td.cell-account= c.accountNumber
+                td.cell-name= c.clientName
+                td.cell-cuit= c.cuit
+                td
+                  span.badge(class=`badge-${c.contractType}`)= c.contractType
+                td= c.assignedAgronomist
+                td.cell-actions
+                  a.btn.btn-small(href=`/clientes/${c.accountNumber}`) Ver Ficha &rarr;
+    else
+      .empty-box
+        p No hay cuentas agropecuarias registradas actualmente.
+        a.btn.btn-primary(href="/clientes/nuevo") Registrar la primera cuenta
