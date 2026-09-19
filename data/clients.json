@@ -1,18 +1,18 @@
 [
   {
     "numeroCuenta": "CTA-101",
-    "nombreCliente": "Agropecuaria El Ombú S.A.",
+    "nombreCliente": "Agropecuaria El Ombú Renovada S.A.",
     "cuit": "30-71234567-8",
-    "tipoContrato": "anual",
-    "agronomoAsignado": "Ing. Marcos Paz",
+    "tipoContrato": "quinquenal",
+    "agronomoAsignado": "Ing. Valentina Morales (Reemplazo)",
     "fechaCreacion": "2026-09-18T10:00:00.000Z"
   },
   {
-    "numeroCuenta": "CTA-102",
-    "nombreCliente": "Estancia Los Pinos S.R.L.",
-    "cuit": "30-68954123-4",
+    "numeroCuenta": "CTA-103",
+    "nombreCliente": "Cabaña La Ilusión S.A.",
+    "cuit": "30-75489621-3",
     "tipoContrato": "quinquenal",
-    "agronomoAsignado": "Ing. Lucía Fernández",
-    "fechaCreacion": "2026-09-18T10:15:00.000Z"
+    "agronomoAsignado": "Ing. Sofía Valenzuela",
+    "fechaCreacion": "2026-09-19T13:00:32.886Z"
   }
 ]
