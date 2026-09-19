@@ -1,4 +1,4 @@
-# Guion del Video Explicativo: AgroGestión P1
+# Guion del Video Explicativo: Sigma Tech
 
 **Duración recomendada:** 3 a 5 minutos  
 **Modalidad:** Dos integrantes (Integrante 1: Backend / Integrante 2: Vistas y Pruebas)  

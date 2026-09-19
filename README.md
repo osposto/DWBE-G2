@@ -1,4 +1,4 @@
-# AgroGestión P1 - Sistema de Cuentas Agropecuarias
+# Sigma Tech - Sistema de Cuentas Agropecuarias
 **Materia:** Desarrollo Web Backend  
 **Carrera:** Tecnicatura Superior  
 **Trabajo Práctico:** TP1 - Proceso P1: Alta comercial y técnica de cuentas agropecuarias  

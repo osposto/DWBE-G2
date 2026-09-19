@@ -23,7 +23,7 @@ class ClienteControlador {
 
       // Renderiza vista en Pug
       res.render('clients-list', {
-        title: 'Cuentas Agropecuarias Activas - AgroGestión P1',
+        title: 'Cuentas Agropecuarias Activas - Sigma Tech',
         description: 'Padrón de cuentas de productores agropecuarios registrados en el sistema.',
         clientes: listaClientes
       });

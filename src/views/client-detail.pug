@@ -13,9 +13,9 @@ block content
       h1 Ficha Técnica de Cuenta Agropecuaria
       p.subtitle Expediente comercial y técnico correspondiente al Proceso P1
     .heading-actions
-      a.btn.btn-edit(href=`/clientes/${cliente.numeroCuenta}/editar`) ✏️ Editar Cuenta
+      a.btn.btn-edit(href=`/clientes/${cliente.numeroCuenta}/editar`) Editar Cuenta
       form(action=`/clientes/${cliente.numeroCuenta}/eliminar`, method="POST", style="display: inline;", onsubmit="return confirm('¿Está seguro de eliminar definitivamente esta cuenta agropecuaria?');")
-        button.btn.btn-danger(type="submit") 🗑️ Eliminar Cuenta
+        button.btn.btn-danger(type="submit") Eliminar Cuenta
 
   article.detail-card
     .detail-header
@@ -47,4 +47,4 @@ block content
           dd= cliente.fechaCreacion
 
     .detail-footer
-      a.btn.btn-secondary(href="/clientes") &larr; Volver al Listado de Cuentas
+      a.btn.btn-secondary(href="/clientes") Volver al Listado de Cuentas

@@ -56,7 +56,7 @@ app.use(manejadorErrorGlobal);
 if (require.main === module) {
   app.listen(PUERTO, () => {
     console.log('===========================================================');
-    console.log(`🌾 AgroGestión P1 - Servidor activo en el puerto ${PUERTO}`);
+    console.log(`Sigma Tech - Servidor activo en el puerto ${PUERTO}`);
     console.log(`🌐 Interfaz web: http://localhost:${PUERTO}/clientes`);
     console.log(`📝 Alta comercial: http://localhost:${PUERTO}/clientes/nuevo`);
     console.log('===========================================================');
