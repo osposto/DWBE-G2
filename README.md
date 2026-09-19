@@ -62,9 +62,8 @@ DWBE_TP1/
 │   │   └── styles.css                # Estilos CSS accesibles y ligeros
 │   └── robots.txt                    # Directivas para motores de búsqueda (SEO)
 └── docs/
-    ├── thunder-client-collection.json# Colección de pruebas para Thunder Client
-    ├── requests.http                 # Pruebas directas para VS Code REST Client
-    └── guion_video.md                # Estructura minuto a minuto del video explicativo
+    └── evidence-thunderclient/       # Capturas de pantalla con las evidencias de pruebas
+
 ```
 
 ---
@@ -126,17 +125,15 @@ Abrir en el navegador web:
 | Aspecto | Integrante 1: Backend & Arquitectura de Datos | Integrante 2: Vistas, UI/UX & Pruebas |
 |---|---|---|
 | **Responsabilidades Core** | Inicialización de Express en `app.js`, ruteo dinámico, modelos POO (`Client`, `ClientDAO`), persistencia en `clients.json` y middlewares de validación. | Plantillas Pug semánticas (`layout`, `clients-list`, `client-form`, `client-detail`), SEO técnico (metadatos, estructura de títulos), estilos y pruebas ThunderClient. |
-| **Entregables Clave** | `app.js`, `src/models/*`, `src/controllers/*`, `src/middlewares/*`. | `src/views/*`, maquetación responsive, `public/css/*`, `robots.txt`, capturas en `/docs`, guion del video. |
-| **Documentación** | Explicación técnica de arquitectura y endpoints en `README.md`. | Matriz de roles, bibliografía formal consultada y guion de video. |
+| **Entregables Clave** | `app.js`, `src/models/*`, `src/controllers/*`, `src/middlewares/*`. | `src/views/*`, maquetación responsive, `public/css/*`, `robots.txt`, capturas en `/docs` |
+| **Documentación** | Explicación técnica de arquitectura y endpoints en `README.md`. | Matriz de roles y bibliografía formal consultada. |
 
 ---
 
-## 6. Pruebas y Validación (Thunder Client / REST Client)
+## 6. Pruebas y Evidencias (Thunder Client)
 
-En la carpeta [`docs/`](docs/) se incluyen los recursos de validación:
-- **Colección Thunder Client:** [`docs/thunder-client-collection.json`](docs/thunder-client-collection.json) con los 8 casos de prueba configurados.
-- **Archivo de Peticiones Directas:** [`docs/requests.http`](docs/requests.http) ejecutable directamente en Visual Studio Code.
-- **Guion del Video Explicativo:** [`docs/guion_video.md`](docs/guion_video.md) con la distribución temporal (3 a 5 minutos) entre los dos integrantes.
+En la carpeta [`docs/`](docs/) se incluyen las evidencias y recursos de validación:
+- **Evidencias de Pruebas:** Carpeta [`docs/evidence-thunderclient/`](docs/evidence-thunderclient/) con las 10 capturas de pantalla de los casos de prueba ejecutados (GET, POST exitoso, POST fallido, PUT, PATCH, DELETE y estados del archivo JSON).
 
 ---
 

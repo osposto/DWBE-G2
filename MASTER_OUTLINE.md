@@ -5,7 +5,7 @@ Este esquema maestro adapta el plan integral de desarrollo para un equipo de dos
 | Aspecto | Integrante 1: Backend & Arquitectura de Datos | Integrante 2: Vistas, UI/UX & Pruebas |
 | --- | --- | --- |
 | **Responsabilidades Core** | Inicialización de Express, ruteo dinámico, modelos POO, persistencia en `clients.json` y middlewares. | Plantillas Pug semánticas, SEO técnico (metadatos, estructura de títulos), estilos y pruebas ThunderClient. |
-| **Entregables Clave** | `app.js`, `src/models/*`, `src/controllers/*`, `src/middlewares/*`. | `src/views/*`, maquetación responsive, capturas en `/docs`, guión del video. |
+| **Entregables Clave** | `app.js`, `src/models/*`, `src/controllers/*`, `src/middlewares/*`. | `src/views/*`, maquetación responsive, capturas en `/docs`. |
 | **Documentación** | Explicación técnica de arquitectura y endpoints en `README.md`. | Matriz de roles, bibliografía formal consultada y edición del video. |
 
 ---
@@ -87,7 +87,7 @@ Este esquema maestro adapta el plan integral de desarrollo para un equipo de dos
 * `DELETE /clientes/:accountNumber`: Eliminación de cuenta con verificación de código 200 OK y posterior 404 Not Found al intentar consultarla.
 
 
-* **Evidencia requerida:** Exportación de la colección o captura de pantalla nítida guardada en `docs/evidence-thunderclient.png`.
+* **Evidencia requerida:** Exportación de la colección de capturas de pantalla nítida guardada en `docs/evidencia-thunderclient`.
 
 ---
 
@@ -99,10 +99,3 @@ Este esquema maestro adapta el plan integral de desarrollo para un equipo de dos
 * Tabla de integrantes con roles y asignación de tareas específicas.
 * Sección de bibliografía técnica: enlaces a la documentación oficial de Node.js, Express.js y Pug template engine.
 * Enlace al video explicativo alojado (YouTube, Drive o Vimeo).
-
-
-* **Guión del video explicativo (duración recomendada: 3 a 5 minutos):**
-* *Minuto 0:00 - 0:45:* Presentación conjunta, resumen del proceso P1 y demostración visual en navegador.
-* *Minuto 0:45 - 2:15:* **Integrante 1:** Explica la estructura de clases en POO, el DAO para el archivo JSON, la ruta dinámica y los middlewares.
-* *Minuto 2:15 - 3:45:* **Integrante 2:** Explica la arquitectura de vistas en Pug, accesibilidad del formulario, semántica SEO y ejecución de pruebas en ThunderClient.
-* *Minuto 3:45 - 4:00:* Conclusión y cierre.
