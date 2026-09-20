@@ -148,5 +148,5 @@ En la carpeta [`docs/`](docs/) se incluyen las evidencias y recursos de validaci
 ---
 
 ## 8. Video Explicativo de la Solución
-- **Enlace al video:** *[Pendiente de grabación / insertar link aquí]*
+- **Enlace al video:** [(https://drive.google.com/file/d/1YJ581KyvNVSVOjQLyX9a6V88USeVQJWx/view?usp=sharing)]
 
